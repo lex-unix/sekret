@@ -1,5 +1,7 @@
 # sekret
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/lex-unix/sekret.svg)](https://pkg.go.dev/github.com/lex-unix/sekret)
+
 A simple Go package for handling sensitive data safely. Automatically masks secrets when printing, logging, or serializing to prevent accidental exposure.
 
 Inspired by Rust's [secrecy](https://crates.io/crates/secrecy) crate.
@@ -25,7 +27,7 @@ package main
 
 import (
     "fmt"
-    "github.com/yourusername/sekret"
+    "github.com/lex-unix/sekret"
 )
 
 func main() {
@@ -44,21 +46,21 @@ func main() {
 
 ```go
 type Config struct {
-    Username string              `json:"username" yaml:"username"`
-    Password sekret.Sekret[string] `json:"password" yaml:"password"`
-    APIKey   sekret.Sekret[string] `json:"api_key" yaml:"api_key"`
+	Username string                `json:"username" yaml:"username"`
+	Password sekret.Sekret[string] `json:"password" yaml:"password"`
+	APIKey   sekret.Sekret[string] `json:"api_key" yaml:"api_key"`
 }
 
 func main() {
-    config := Config{
-        Username: "admin",
-        Password: sekret.New("secret123"),
-        APIKey:   sekret.New("sk-1234567890"),
-    }
+	config := Config{
+		Username: "admin",
+		Password: sekret.New("secret123"),
+		APIKey:   sekret.New("sk-1234567890"),
+	}
 
-    // Safe logging - secrets are masked
-    fmt.Printf("Config: %+v\n", config)
-    // Output: Config: {Username:admin Password:****** APIKey:******}
+	// Safe logging - secrets are masked
+	fmt.Printf("Config: %+v\n", config)
+	// Output: Config: {Username:admin Password:****** APIKey:******}
 }
 ```
 
